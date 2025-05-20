@@ -114,64 +114,56 @@ export default function NFT() {
   }
 
   return (
-    <div className="p-6 text-white">
+    <div className="p-6 text-gray-400">
       <h1 className="text-3xl font-bold mb-6">NFT Collection</h1>
-      {loadingState ? (
-        <p>Chargement des NFTs...</p>
-      ) : (
-        <div className="flex flex-col w-full">
-          <div className="mb-6">
-            <label
-              htmlFor="contract"
-              className="block text-sm font-medium  mb-1"
-            >
-              Adresse du wallet
-            </label>
-            <input
-              id="contract"
-              type="text"
-              value={walletAddress}
-              onChange={(e) => setwalletAddress(e.target.value)}
-              placeholder="0x..."
-              className="w-full border rounded-md px-4 py-2 shadow-sm focus:ring focus:ring-blue-300"
-            />
-          </div>
-          <div className="mb-6">
-            <label
-              htmlFor="contract"
-              className="block text-sm font-medium  mb-1"
-            >
-              Adresse du contrat
-            </label>
-            <input
-              id="contract"
-              type="text"
-              value={contractAddress}
-              onChange={(e) => setContractAddress(e.target.value)}
-              placeholder="0x..."
-              className="w-full border rounded-md px-4 py-2 shadow-sm focus:ring focus:ring-blue-300"
-            />
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 text-black">
-            {nfts.map((nft) => (
-              <div
-                key={nft.tokenId}
-                className="border rounded-xl shadow-md p-4 bg-white"
-              >
-                <img
-                  src={nft.img}
-                  alt={nft.name}
-                  className="rounded-lg  w-full aspect-square object-cover mb-4"
-                />
-                <h2 className="text-xl font-semibold">{nft.name}</h2>
-                <p className="text-sm ">ID: {nft.tokenId}</p>
-                <p className="text-gray-700">Desc: {nft.desc}</p>
-                <p className="text-gray-700">Amount: {"x " + nft.balance}</p>
-              </div>
-            ))}
-          </div>
+      <div className="flex flex-col w-full">
+        <div className="mb-6">
+          <label htmlFor="contract" className="block text-sm font-medium  mb-1">
+            Adresse du wallet
+          </label>
+          <input
+            id="contract"
+            type="text"
+            value={walletAddress}
+            onChange={(e) => setwalletAddress(e.target.value)}
+            placeholder="0x..."
+            className="w-full border rounded-md px-4 py-2 shadow-sm focus:ring focus:ring-blue-300"
+          />
         </div>
-      )}
+        <div className="mb-6">
+          <label htmlFor="contract" className="block text-sm font-medium  mb-1">
+            Adresse du contrat
+          </label>
+          <input
+            id="contract"
+            type="text"
+            value={contractAddress}
+            onChange={(e) => setContractAddress(e.target.value)}
+            placeholder="0x..."
+            className="w-full border rounded-md px-4 py-2 shadow-sm focus:ring focus:ring-blue-300"
+          />
+        </div>
+        {loadingState && <div className="mb-2">Chargement des NFTs...</div>}
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 text-black">
+          {nfts.map((nft) => (
+            <div
+              key={nft.tokenId}
+              className="border rounded-xl shadow-md p-4 bg-white"
+            >
+              <img
+                src={nft.img}
+                alt={nft.name}
+                className="rounded-lg  w-full aspect-square object-cover mb-4"
+              />
+              <h2 className="text-xl font-semibold">{nft.name}</h2>
+              <p className="text-sm ">ID: {nft.tokenId}</p>
+              <p className="text-gray-700">Desc: {nft.desc}</p>
+              <p className="text-gray-700">Amount: {"x " + nft.balance}</p>
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 }
