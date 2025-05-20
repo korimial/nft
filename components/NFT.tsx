@@ -10,7 +10,13 @@ type NFTMeta = {
   img: string;
   tokenId: number;
   desc: string;
-  balance: BigInt;
+  balance: bigint;
+};
+
+type Metadata = {
+  name?: string;
+  image?: string;
+  description?: string;
 };
 
 export default function NFT() {
@@ -47,10 +53,10 @@ export default function NFT() {
     }
   }, [contractAddress, walletAddress]);
 
-  async function fetchMetadata(uri: string): Promise<any | null> {
+  async function fetchMetadata(uri: string): Promise<Metadata | null> {
     try {
       const cleanUri = ipfsToHttp(uri);
-      const response: AxiosResponse<any> = await axios.get(cleanUri);
+      const response: AxiosResponse<Metadata> = await axios.get(cleanUri);
       return response.data;
     } catch (error) {
       console.error("Failed to fetch metadata:", error);
@@ -82,16 +88,16 @@ export default function NFT() {
       console.log(balanceBigInt);
 
       if (balanceBigInt > BigInt(0)) {
-        let uri = await contract.uri(i);
+        const uri = await contract.uri(i);
         const uriUpdate = uri.replace("{id}", i) ?? "";
 
         console.log(uri);
         const metadata = await fetchMetadata(uriUpdate);
         console.log(metadata);
 
-        const image = ipfsToHttp(metadata.image ?? "");
-        const name = metadata.name ?? "No name";
-        const desc = metadata.description ?? "No description";
+        const image = ipfsToHttp(metadata?.image ?? "");
+        const name = metadata?.name ?? "No name";
+        const desc = metadata?.description ?? "No description";
 
         itemArray.push({
           name: name,
