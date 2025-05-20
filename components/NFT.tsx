@@ -65,7 +65,7 @@ export default function NFT() {
   }
 
   const ipfsToHttp = (uri: string) =>
-    uri.replace("ipfs://", "https://ipfs.io/ipfs/");
+    uri.replace("ipfs://", "https://gateway.pinata.cloud/ipfs/");
 
   async function generateNft() {
     setLoadingState(true);
